@@ -69,10 +69,10 @@ export default function SchedulePage() {
                     <tr>
                         <th className="w-1/4 py-8 px-6 font-semibold uppercase">Matakuliah</th>
                         <th className="w-1/4 py-8 px-6 font-semibold uppercase">Ruangan</th>
+                        <th className="w-1/4 py-8 px-6 font-semibold uppercase">Kelas</th>
+                        <th className="w-1/4 py-8 px-6 font-semibold uppercase">Hari</th>
                         <th className="w-1/4 py-8 px-6 font-semibold uppercase">Mulai</th>
                         <th className="w-1/4 py-8 px-6 font-semibold uppercase">Selesai</th>
-                        <th className="w-1/4 py-8 px-6 font-semibold uppercase">Hari</th>
-                        <th className="w-1/4 py-8 px-6 font-semibold uppercase">Kelas</th>
                         <th className="w-1/4 py-8 px-6 font-semibold uppercase">Action</th>
                     </tr>
                 </thead>
@@ -81,12 +81,12 @@ export default function SchedulePage() {
                         <tr key={item.id} className="border-b border-gray-300 hover:bg-gray-50">
                             <td className="py-8 px-6">{item.matakuliah}</td>
                             <td className="py-8 px-6">{item.ruangan}</td>
-                            <td className="py-8 px-6">{item.mulai}</td>
-                            <td className="py-8 px-6">{item.selesai}</td>
-                            <td className="py-8 px-6">{item.hari}</td>
                             <td className="py-8 px-6">
                                 <KelasBadge kelas = {item.kelas} />
                             </td>
+                            <td className="py-8 px-6">{item.hari}</td>
+                            <td className="py-8 px-6">{item.mulai}</td>
+                            <td className="py-8 px-6">{item.selesai}</td>
                             <td className="py-8 px-6">
                                 <div className="flex gap-3 justify-center px-6">
                                     <PrimaryButton

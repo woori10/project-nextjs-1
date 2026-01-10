@@ -1,17 +1,5 @@
-import AppBar from "@/components/layout/appbar";
-import Sidebar from "@/components/layout/sidebar";
 import type { Metadata } from "next";
 import "./globals.css";
-
-// const geistSans = Geist({
-//   variable: "--font-geist-sans",
-//   subsets: ["latin"],
-// });
-
-// const geistMono = Geist_Mono({
-//   variable: "--font-geist-mono",
-//   subsets: ["latin"],
-// });
 
 export const metadata: Metadata = {
   title: "Jadwal Kuliah",
@@ -25,15 +13,8 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className="flex min-h-screen">
-        <Sidebar />
-        <div className="flex-1 flex flex-col">
-          <AppBar />
-          <main className="flex-1 p-10 overflow-y-auto">
-            {children}
-          </main>
-        </div>
-       
+      <body className="min-h-screen">
+        {children}
       </body>
     </html>
   );

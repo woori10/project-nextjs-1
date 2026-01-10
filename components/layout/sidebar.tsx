@@ -8,11 +8,11 @@ export default function Sidebar() {
     <aside className="top-0 left-0 z-40 w-100 h-screen transition-transform -translate-x-full sm:translate-x-0 border-r border-gray-400 bg-white px-6 py-8 shadow-sm">
       <div className="h-full px-2 py-8 overflow-y-auto bg-white">
 
-        <h1 className="flex items-center leading-snug text-center text-5xl font-semibold">
+        {/* <h1 className="flex items-center text-center text-5xl font-semibold">
           Daily Management
-        </h1>
+        </h1> */}
 
-        <nav className="flex flex-col mt-14 space-y-5 text-3xl">
+        <nav className="flex flex-col mt-28 space-y-5 text-3xl">
           <Link
             href="/schedule"
             className="flex items-center gap-6 rounded-md px-4 py-3 hover:bg-indigo-50 hover:text-indigo-600 transition"
