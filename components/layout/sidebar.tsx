@@ -1,4 +1,4 @@
-import { CalendarDaysIcon, DocumentTextIcon } from "@heroicons/react/24/solid";
+import { CalendarDaysIcon, DocumentTextIcon, Squares2X2Icon } from "@heroicons/react/24/solid";
 import Link from "next/link";
 
 
@@ -16,7 +16,7 @@ export default function Sidebar() {
             href="/dashboard"
             className="flex items-center gap-6 rounded-md px-4 py-3 hover:bg-indigo-50 hover:text-indigo-600 transition"
           >
-            <CalendarDaysIcon className="w-8 h-8"/>
+            <Squares2X2Icon className="w-8 h-8"/>
             Dashboard
           </Link>
           <Link

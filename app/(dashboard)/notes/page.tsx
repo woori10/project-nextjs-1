@@ -1,14 +1,13 @@
 "use client";
 
-import StatusBadge from "@/components/badge/notes/StatusBadge";
 import PrimaryButton from "@/components/button/PrimaryButton";
 import SecondaryButton from "@/components/button/SecondaryButton";
 import TernaryButton from "@/components/button/TernaryButton";
 import ModalForm from "@/components/form/FormNotes";
 import { Note, useNotes } from "@/components/hooks/useNotes";
 import DeleteModal from "@/components/modal/DeleteModal";
+import { formatTanggal } from "@/lib/date";
 import { useState } from "react";
-
 
 export default function NotesPage() {
 
@@ -50,7 +49,7 @@ export default function NotesPage() {
     <div className="m-8">
         <div className="flex justify-between items-center">
             <div>
-                <h1 className="text-4xl font-semibold">Personal Notes</h1>
+                <h1 className="text-4xl font-semibold">Tugas</h1>
             </div>
             
             <div className="flex justify-end">
@@ -58,7 +57,7 @@ export default function NotesPage() {
                     type="button"
                     className="my-4 mx-2"
                     onClick={()=>setOpenModal(true)}>
-                    Tambah Notes
+                    Tambah Tugas
                 </TernaryButton>
             </div>
         </div>
@@ -68,20 +67,28 @@ export default function NotesPage() {
             <table className="min-w-[700px] w-full text-2xl border border-gray-300 table-fixed">
                 <thead className="text-center border-b border-gray-300 hover:bg-gray-50">
                     <tr>
-                        <th className="w-1/4 py-8 px-6 font-semibold uppercase">Notes</th>
-                        <th className="w-1/4 py-8 px-6 font-semibold uppercase">Kategori</th>
-                        <th className="w-1/4 py-8 px-6 font-semibold uppercase">Status</th>
+                        <th className="w-1/4 py-8 px-6 font-semibold uppercase">Tugas</th>
+                        <th className="w-1/4 py-8 px-6 font-semibold uppercase">Matakuliah</th>
+                        <th className="w-1/4 py-8 px-6 font-semibold uppercase">Hari (DL)</th>
+                        <th className="w-1/4 py-8 px-6 font-semibold uppercase">Waktu (DL)</th>
+                        <th className="w-1/4 py-8 px-6 font-semibold uppercase">Pengumpulan</th>
                         <th className="w-1/4 py-8 px-6 font-semibold uppercase">Action</th>
                     </tr>
                 </thead>
                 <tbody className="text-center">
                     {notes.map((item) => (
                         <tr key={item.id} className="border-b border-gray-300 hover:bg-gray-50">
-                            <td className="py-8 px-6">{item.notes}</td>
-                            <td className="py-8 px-6">{item.kategori}</td>
-                            <td className="py-8 px-6">
+                            <td className="py-8 px-6">{item.tugas}</td>
+                            <td className="py-8 px-6">{item.matakuliah}</td>
+                            <td className="py-8 px-6">{formatTanggal(item.hari)}</td>
+                            <td className="py-8 px-6">{item.waktu}</td>
+                            <td className="py-8 px-6">{item.pengumpulan}</td>
+
+                            {/* Status */}
+                            {/* <td className="py-8 px-6">
                                 <StatusBadge status = {item.status} />
-                            </td>
+                            </td> */}
+
                             <td className="py-8 px-6">
                                 <div className="flex gap-3 justify-center px-6">
                                     <PrimaryButton

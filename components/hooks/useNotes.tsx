@@ -2,9 +2,11 @@ import { useEffect, useState } from "react";
 
 export type Note = {
     id : number;
-    notes : string;
-    kategori : string;
-    status : string;
+    tugas: string,
+    matakuliah: string,
+    hari: string,
+    waktu: string,
+    pengumpulan: string,
 }
 
 export function useNotes () {

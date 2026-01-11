@@ -10,13 +10,22 @@ type ModalProps ={
 
 export default function NotesModalForm ({ onClose, onSubmit, initialData }: ModalProps) {
     
-    const status =["Soon", "On Progress", "Pending", "Done"]
-    const kategori =["Tugas Kuliah", "Belajar Bahasa Korea", "Shooping", "Lifestyle"]
+    // const status =["Soon", "On Progress", "Pending", "Done"]
+    const matakuliah =[
+        "Kecerdasan Bisnis", 
+        "Proyek Pengembangan Perangkat Lunak",
+        "Bahasa Inggris Dokumentasi Teknis",
+        "Visual Komputer Cerdas",
+        "Teknologi Big Data",
+        "Bahasa Asing (Jepang)"
+    ]
 
     const [formData, setFormData] = useState({
-        notes: "",
-        kategori: "",
-        status: "",
+        tugas: "",
+        matakuliah: "",
+        hari: "",
+        waktu: "",
+        pengumpulan:"",
     });
 
     const handleSubmit = (e: React.FormEvent) => {
@@ -52,22 +61,82 @@ export default function NotesModalForm ({ onClose, onSubmit, initialData }: Moda
                  <form onSubmit={handleSubmit} className="space-y-6 p-8">
 
                     <h1 className="text-center text-4xl font-medium mb-8">
-                        {initialData? "Edit Notes" : "Tambah Notes"}
+                        {initialData? "Edit Tugas" : "Tambah Tugas"}
                     </h1>
 
                     <div>
-                        <label className="block mb-3 text-2xl font-medium text-heading">Notes</label>
+                        <label className="block mb-3 text-2xl font-medium text-heading">Tugas</label>
                         <input 
                             type="text" 
-                            placeholder="Tambahkan Notes" 
+                            placeholder="Tambahkan Tugas" 
                             className="block text-2xl border border-default-medium text-heading font-medium rounded rounded-base focus:border-brand w-full px-3 py-3 shadow-xs"
-                            value={formData.notes}
+                            value={formData.tugas}
                             onChange={(e) => 
-                                setFormData({...formData, notes: e.target.value})
+                                setFormData({...formData, tugas: e.target.value})
                             }    
                         />
                     </div>
+
                     <div>
+                        <label className="block mb-3 text-2xl font-medium text-heading">Matakuliah</label>
+                        <select 
+                            value={formData.matakuliah}
+                            onChange={(e) => 
+                                setFormData({...formData, matakuliah: e.target.value})
+                            }
+                            className="w-full rounded-md border px-2 py-3 text-2xl">
+                            
+                            <option value="" disabled>Pilih Matakuliah</option>
+
+                            {matakuliah.map((matakuliah) => (
+                                <option key={matakuliah} value={matakuliah}>
+                                    {matakuliah}
+                                </option>
+                            ))}
+                        </select>
+                    </div>
+
+                    <div>
+                        <label className="block mb-3 text-2xl font-medium text-heading">Hari (DL)</label>
+                        <input 
+                            type="date" 
+                            placeholder="Tambahkan Tugas" 
+                            className="block text-2xl border border-default-medium text-heading font-medium rounded rounded-base focus:border-brand w-full px-3 py-3 shadow-xs"
+                            value={formData.hari}
+                            onChange={(e) => 
+                                setFormData({...formData, hari: e.target.value})
+                            }    
+                        />
+                    </div>
+
+                    <div>
+                        <label className="block mb-3 text-2xl font-medium text-heading">Waktu (DL)</label>
+                        <input 
+                            type="time" 
+                            placeholder="Tambahkan Tugas" 
+                            className="block text-2xl border border-default-medium text-heading font-medium rounded rounded-base focus:border-brand w-full px-3 py-3 shadow-xs"
+                            value={formData.waktu}
+                            onChange={(e) => 
+                                setFormData({...formData, waktu: e.target.value})
+                            }    
+                        />
+                    </div>
+
+                    <div>
+                        <label className="block mb-3 text-2xl font-medium text-heading">Pengumpulan</label>
+                        <input 
+                            type="text" 
+                            placeholder="Tambahkan Pengumpulan"
+                            className="block text-2xl border border-default-medium text-heading font-medium rounded rounded-base focus:border-brand w-full px-3 py-3 shadow-xs"
+                            value={formData.pengumpulan}
+                            onChange={(e) => 
+                                setFormData({...formData, pengumpulan: e.target.value})
+                            }    
+                        />
+                    </div>
+
+                    {/* Kategori */}
+                    {/* <div>
                         <label className="block mb-3 text-2xl font-medium text-heading">Kategori</label>
                         <select 
                             value={formData.kategori}
@@ -84,8 +153,10 @@ export default function NotesModalForm ({ onClose, onSubmit, initialData }: Moda
                                 </option>
                             ))}
                         </select>
-                    </div>
-                    <div>
+                    </div> */}
+
+                    {/* Status */}
+                    {/* <div>
                         <label className="block mb-3 text-2xl font-medium text-heading">Status</label>
                         <select 
                             value={formData.status}
@@ -102,7 +173,8 @@ export default function NotesModalForm ({ onClose, onSubmit, initialData }: Moda
                             </option>
                             ))}
                         </select>
-                    </div>
+                    </div> */}
+
                     <div className="flex justify-end">
                         <TernaryButton type="submit" className="mt-4">
                             {initialData? "Simpan" : "Tambah"}
