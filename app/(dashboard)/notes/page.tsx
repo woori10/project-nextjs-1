@@ -22,7 +22,18 @@ export default function NotesPage() {
         addNote,
         updateNote,
         deleteNote,
+        loading
     } = useNotes();
+
+    const SkeletonLoader = () => (
+        <tr className="animate-pulse">
+            {Array.from({ length: 7 }).map((_, i) => (
+            <td key={i} className="py-8 px-6">
+                <div className="h-6 bg-gray-200 rounded w-full" />
+            </td>
+            ))}
+        </tr>
+    )
 
     const handleSubmitNote = (data: Omit <Note, "id">) => {
         if (selectedNote) {
@@ -76,7 +87,14 @@ export default function NotesPage() {
                     </tr>
                 </thead>
                 <tbody className="text-center">
-                    {notes.map((item) => (
+                    {loading ? (
+                        <>
+                        <SkeletonLoader />
+                        <SkeletonLoader />
+                        <SkeletonLoader />
+                        </>
+                    ) : (
+                    notes.map((item) => (
                         <tr key={item.id} className="border-b border-gray-300 hover:bg-gray-50">
                             <td className="py-8 px-6">{item.tugas}</td>
                             <td className="py-8 px-6">{item.matakuliah}</td>
@@ -108,7 +126,8 @@ export default function NotesPage() {
                                 </div>
                             </td>
                         </tr>
-                    ))}
+                    ))
+                )}
                 </tbody>
             </table>
             </div>
@@ -129,7 +148,7 @@ export default function NotesPage() {
             show={showDeleteModal}
             onClose={()=>setShowDeleteModal(false)}
             onConfirm={handleDeleteNote}
-            message={"Apakah kamu ingin menghapus notes ini?"}
+            message={"Apakah kamu ingin menghapus tugas ini?"}
         />
         
     </div>

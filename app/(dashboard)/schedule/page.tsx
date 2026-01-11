@@ -14,7 +14,6 @@ export default function SchedulePage() {
 
     const [openModal, setOpenModal] = useState(false);
     const [showDeleteModal, setShowDeleteModal] = useState(false);
-    
     const [selectedSchedulesId, setSelectedSchedulesId] = useState <number | null>(null);
     const [selectedSchedule, setSelectedSchedule] = useState<Schedule | null>(null);
 
@@ -22,8 +21,19 @@ export default function SchedulePage() {
         schedules,
         addSchedule,
         updateSchedule,
-        deleteNSchedule,
+        deleteSchedule,
+        loading
     } = useSchedules();
+
+    const SkeletonLoader = () => (
+        <tr className="animate-pulse">
+            {Array.from({ length: 7 }).map((_, i) => (
+            <td key={i} className="py-8 px-6">
+                <div className="h-6 bg-gray-200 rounded w-full" />
+            </td>
+            ))}
+        </tr>
+    )
 
     const handleSubmitSchedule = (data: Omit <Schedule, "id">) => {
         if (selectedSchedule) {
@@ -39,7 +49,7 @@ export default function SchedulePage() {
     const handleDeleteSchedule = () => {
         if (selectedSchedulesId === null) return ;
 
-        deleteNSchedule(selectedSchedulesId);
+        deleteSchedule(selectedSchedulesId);
         setShowDeleteModal(false);
         setSelectedSchedulesId(null);
     }
@@ -64,6 +74,7 @@ export default function SchedulePage() {
 
         <div className="shadow-sm rounded-md my-4">
             <div className="overflow-x-auto">
+            
             <table className="min-w-[700px] w-full text-2xl border border-gray-300 table-fixed">
                 <thead className="text-center border-b border-gray-300 hover:bg-gray-50">
                     <tr>
@@ -77,7 +88,14 @@ export default function SchedulePage() {
                     </tr>
                 </thead>
                 <tbody className="text-center">
-                    {schedules.map((item) => (
+                    {loading ? (
+                        <>
+                        <SkeletonLoader />
+                        <SkeletonLoader />
+                        <SkeletonLoader />
+                        </>
+                    ) : (
+                    schedules.map((item) => (
                         <tr key={item.id} className="border-b border-gray-300 hover:bg-gray-50">
                             <td className="py-8 px-6">{item.matakuliah}</td>
                             <td className="py-8 px-6">{item.ruangan}</td>
@@ -106,7 +124,8 @@ export default function SchedulePage() {
                                 </div>
                             </td>
                         </tr>
-                    ))}
+                    ))
+                )}
                 </tbody>
             </table>
             </div>

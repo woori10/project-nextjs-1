@@ -13,25 +13,41 @@ export type Schedule = {
 
 export function useSchedules () {
     
-     const [schedules, setSchedules] = useState<Schedule[]>([]);
+    const [schedules, setSchedules] = useState<Schedule[]>([]);
+    const [loading, setLoading] = useState(true);
 
-     const hari_order: Record<string, number> = {
+    const hari_order: Record<string, number> = {
         Senin: 1,
         Selasa: 2,
         Rabu: 3,
         Kamis: 4,
         Jumat: 5,
-     }
+    }
 
-     const fetchSchedules = async() => {
-        const {data, error} = await supabase
+    const fetchSchedules = async () => {
+        setLoading(true);
+
+        const start = Date.now(); 
+
+        const { data, error } = await supabase
             .from("jadwal_kuliah")
             .select("*")
             .order("hari", { ascending: true })
             .order("pukul_mulai", { ascending: true });
 
+        const elapsed = Date.now() - start;
+        const MIN_LOADING_TIME = 500; 
+
+           
+        if (elapsed < MIN_LOADING_TIME) {
+            await new Promise((res) =>
+                setTimeout(res, MIN_LOADING_TIME - elapsed)
+            );
+        }
+
         if (error) {
-            console.error("Fetch error:", error);
+            console.error("Fetch Jadwal error:", error);
+            setLoading(false); 
             return;
         }
 
@@ -49,10 +65,10 @@ export function useSchedules () {
                 return hari_order[a.hari] - hari_order[b.hari];
             });
 
-
         setSchedules(mapped);
-        
-     };
+        setLoading(false); 
+    };
+
 
     useEffect(() => {
         fetchSchedules();
@@ -69,7 +85,7 @@ export function useSchedules () {
         });
 
         if (error) {
-            console.error("Insert Error : ", error);
+            console.error("Insert Jadwal Error : ", error);
             return;
         }
 
@@ -90,21 +106,21 @@ export function useSchedules () {
         .eq("id_jadwal", id);
 
         if (error) {
-            console.error("Update Error : ", error);
+            console.error("Update Jadwal Error : ", error);
             return;
         }
 
         fetchSchedules();
      };
 
-     const deleteNSchedule = async (id: number) => {
+     const deleteSchedule = async (id: number) => {
         const {error} = await supabase
         .from("jadwal_kuliah")
         .delete()
         .eq("id_jadwal", id);
 
         if (error) {
-            console.error("Delete Error : ", error);
+            console.error("Delete Jadwal Error : ", error);
             return;
         }
 
@@ -127,9 +143,10 @@ export function useSchedules () {
 
     return {
         schedules,
+        loading,
         addSchedule,
         updateSchedule,
-        deleteNSchedule
+        deleteSchedule
     };
 
 }
