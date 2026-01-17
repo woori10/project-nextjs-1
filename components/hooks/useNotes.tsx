@@ -6,6 +6,7 @@ export type Note = {
     tugas: string,
     matakuliah: string,
     hari: string,
+    tanggal: string,
     waktu: string,
     pengumpulan: string,
 }
@@ -21,6 +22,8 @@ export function useNotes () {
         Rabu: 3,
         Kamis: 4,
         Jumat: 5,
+        Sabtu: 6,
+        Minggu: 7,
      }
 
     
@@ -57,6 +60,7 @@ export function useNotes () {
                 tugas: item.tugas,
                 matakuliah: item.matakuliah,
                 hari: item.hari,
+                tanggal: item.tanggal,
                 waktu: item.waktu,
                 pengumpulan: item.pengumpulan,
             }))
@@ -78,6 +82,7 @@ export function useNotes () {
             tugas: data.tugas,
             matakuliah: data.matakuliah,
             hari: data.hari,
+            tanggal: data.tanggal,
             waktu: data.waktu,
             pengumpulan: data.pengumpulan,
         });
@@ -97,6 +102,7 @@ export function useNotes () {
             tugas: data.tugas,
             matakuliah: data.matakuliah,
             hari: data.hari,
+            tanggal: data.tanggal,
             waktu: data.waktu,
             pengumpulan: data.pengumpulan,
         })

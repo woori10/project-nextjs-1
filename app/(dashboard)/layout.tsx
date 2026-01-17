@@ -1,30 +1,19 @@
 "use client";
 
 import AppBar from "@/components/layout/appbar";
-import Sidebar from "@/components/layout/sidebar";
-import { useState } from "react";
 
-export default function MainLayout({
-  children,
-}: {
-  children: React.ReactNode;
-}) {
-  const [sidebarOpen, setSidebarOpen] = useState(false);
-
+export default function MainLayout({ children }: { children: React.ReactNode }) {
   return (
     <div className="flex min-h-screen">
-      <Sidebar
-        open={sidebarOpen}
-        onClose={() => setSidebarOpen(false)}
-      />
+      <div className="flex flex-1 flex-col">
+        <AppBar />
 
-      <div className="flex-1 flex flex-col">
-        <AppBar onToggle={() => setSidebarOpen(!sidebarOpen)} />
-
-        <main className="flex-1 px-10 overflow-y-auto">
+        {/* ⬇️ main NGISI SISA TINGGI */}
+        <main className="flex-1 px-4 sm:px-6 lg:px-10 overflow-y-auto overflow-x-hidden">
           {children}
         </main>
       </div>
     </div>
   );
 }
+

@@ -15,7 +15,8 @@ export default function TernaryButton({
 }: TernaryButtonProps) {
 
     return (
-        <button type={type} onClick={onClick} className={`bg-indigo-500 hover:bg-indigo-700 text-2xl text-white py-3 px-4 rounded ${className}`}>
+        <button type={type} onClick={onClick} 
+            className={`bg-indigo-500 hover:bg-indigo-700 text-xs text-white p-2 rounded ${className}`}>
             {children}
         </button>
     )

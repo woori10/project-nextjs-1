@@ -57,36 +57,36 @@ export default function NotesPage() {
 
 
   return (
-    <div className="m-8">
+    <div className="h-full p-4">
         <div className="flex justify-between items-center">
             <div>
-                <h1 className="text-4xl font-semibold">Tugas</h1>
+                <h1 className="text-xl font-semibold">Tugas Kuliah</h1>
             </div>
             
             <div className="flex justify-end">
                 <TernaryButton
                     type="button"
-                    className="my-4 mx-2"
+                    className="my-4"
                     onClick={()=>setOpenModal(true)}>
                     Tambah Tugas
                 </TernaryButton>
             </div>
         </div>
 
-        <div className="shadow-sm rounded-md my-4">
+        <div className="shadow-sm rounded-md">
             <div className="overflow-x-auto">
-            <table className="min-w-[700px] w-full text-2xl border border-gray-300 table-fixed">
-                <thead className="text-center border-b border-gray-300 hover:bg-gray-50">
+            <table className="min-w-[700px] w-full border border-gray-300 table-fixed bg-white">
+                <thead className="text-center border-b text-sm border-gray-300">
                     <tr>
-                        <th className="w-1/4 py-8 px-6 font-semibold uppercase">Tugas</th>
-                        <th className="w-1/4 py-8 px-6 font-semibold uppercase">Matakuliah</th>
-                        <th className="w-1/4 py-8 px-6 font-semibold uppercase">Hari (DL)</th>
-                        <th className="w-1/4 py-8 px-6 font-semibold uppercase">Waktu (DL)</th>
-                        <th className="w-1/4 py-8 px-6 font-semibold uppercase">Pengumpulan</th>
-                        <th className="w-1/4 py-8 px-6 font-semibold uppercase">Action</th>
+                        <th className="w-1/4 py-4 px-3 font-semibold uppercase">Tugas</th>
+                        <th className="w-1/4 py-4 px-3 font-semibold uppercase">Matakuliah</th>
+                        <th className="w-1/4 py-4 px-3 font-semibold uppercase">Hari (DL)</th>
+                        <th className="w-1/4 py-4 px-3 font-semibold uppercase">Waktu (DL)</th>
+                        <th className="w-1/4 py-4 px-3 font-semibold uppercase">Pengumpulan</th>
+                        <th className="w-1/4 py-4 px-3 font-semibold uppercase">Action</th>
                     </tr>
                 </thead>
-                <tbody className="text-center">
+                <tbody className="text-center text-xs">
                     {loading ? (
                         <>
                         <SkeletonLoader />
@@ -95,19 +95,19 @@ export default function NotesPage() {
                         </>
                     ) : (
                     notes.map((item) => (
-                        <tr key={item.id} className="border-b border-gray-300 hover:bg-gray-50">
-                            <td className="py-8 px-6">{item.tugas}</td>
-                            <td className="py-8 px-6">{item.matakuliah}</td>
-                            <td className="py-8 px-6">{formatTanggal(item.hari)}</td>
-                            <td className="py-8 px-6">{item.waktu}</td>
-                            <td className="py-8 px-6">{item.pengumpulan}</td>
+                        <tr key={item.id} className="border-b border-gray-300">
+                            <td className="py-4 px-3">{item.tugas}</td>
+                            <td className="py-4 px-3">{item.matakuliah}</td>
+                            <td className="py-4 px-3">{item.hari} ({formatTanggal(item.tanggal)})</td>
+                            <td className="py-4 px-3">{item.waktu}</td>
+                            <td className="py-4 px-3">{item.pengumpulan}</td>
 
                             {/* Status */}
                             {/* <td className="py-8 px-6">
                                 <StatusBadge status = {item.status} />
                             </td> */}
 
-                            <td className="py-8 px-6">
+                            <td className="py-4 px-3">
                                 <div className="flex gap-3 justify-center px-6">
                                     <PrimaryButton
                                         onClick={() => {

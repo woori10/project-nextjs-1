@@ -43,27 +43,27 @@ export default function ScheduleModalForm ({ onClose, onSubmit, initialData }: M
     }, [initialData]);
 
     return (
-        <div className="fixed inset-0 z-50 flex items-center justify-center">
+        <div className="fixed inset-0 z-50 flex justify-center items-center">
 
             <div 
                 onClick={onClose}
                 className="absolute inset-0 bg-black/30 backdrop-blur-sm transition-opacity"
             />
 
-            <div className="relative w-full max-w-xl rounded-lg bg-white p-8 border border-gray-300 shadow-lg animate-modal">
+            <div className="relative w-full max-w-lg rounded-lg bg-white p-4 border border-gray-300 shadow-lg animate-modal">
                  
-                 <form onSubmit={handleSubmit} className="space-y-6 p-8">
+                 <form onSubmit={handleSubmit} className="space-y-4 px-8 py-4">
 
-                    <h1 className="text-center text-4xl font-medium mb-8">
-                        {initialData? "Edit Notes" : "Tambah Notes"}
+                    <h1 className="text-center text-lg font-bold mb-4">
+                        {initialData? "Edit Jadwal" : "Tambah Jadwal"}
                     </h1>
 
                     <div>
-                        <label className="block mb-3 text-2xl font-medium text-heading">Matakuliah</label>
+                        <label className="block mb-3 text-sm font-semibold text-heading">Matakuliah</label>
                         <input 
                             type="text" 
                             placeholder="Masukkan Matakuliah" 
-                            className="block text-2xl border border-default-medium text-heading font-medium rounded rounded-base focus:border-brand w-full px-3 py-3 shadow-xs"
+                            className="block text-sm border border-default-medium text-heading font-medium rounded rounded-base focus:border-brand w-full p-2 shadow-xs"
                             value={formData.matakuliah}
                             onChange={(e) => 
                                 setFormData({...formData, matakuliah: e.target.value})
@@ -71,11 +71,11 @@ export default function ScheduleModalForm ({ onClose, onSubmit, initialData }: M
                         />
                     </div>
                     <div>
-                        <label className="block mb-3 text-2xl font-medium text-heading">Ruangan</label>
+                        <label className="block mb-3 text-sm font-semibold text-heading">Ruangan</label>
                         <input 
                             type="text" 
                             placeholder="Masukkan Ruangan" 
-                            className="block text-2xl border border-default-medium text-heading font-medium rounded rounded-base focus:border-brand w-full px-3 py-3 shadow-xs"
+                            className="block text-sm border border-default-medium text-heading font-medium rounded rounded-base focus:border-brand w-full p-2 shadow-xs"
                             value={formData.ruangan}
                             onChange={(e) => 
                                 setFormData({...formData, ruangan: e.target.value})
@@ -83,11 +83,11 @@ export default function ScheduleModalForm ({ onClose, onSubmit, initialData }: M
                         />
                     </div>
                     <div>
-                        <label className="block mb-3 text-2xl font-medium text-heading">Mulai</label>
+                        <label className="block mb-3 text-sm font-semibold text-heading">Mulai</label>
                         <input 
                             type="time" 
                             placeholder="Masukkan Jam" 
-                            className="block text-2xl border border-default-medium text-heading font-medium rounded rounded-base focus:border-brand w-full px-3 py-3 shadow-xs"
+                            className="block text-sm border border-default-medium text-heading font-medium rounded rounded-base focus:border-brand w-full p-2 shadow-xs"
                             value={formData.mulai}
                             onChange={(e) => 
                                 setFormData({...formData, mulai: e.target.value})
@@ -95,11 +95,11 @@ export default function ScheduleModalForm ({ onClose, onSubmit, initialData }: M
                         />
                     </div>
                     <div>
-                        <label className="block mb-3 text-2xl font-medium text-heading">Selesai</label>
+                        <label className="block mb-3 text-sm font-semibold text-heading">Selesai</label>
                         <input 
                             type="time" 
                             placeholder="Masukkan Jam" 
-                            className="block text-2xl border border-default-medium text-heading font-medium rounded rounded-base focus:border-brand w-full px-3 py-3 shadow-xs"
+                            className="block text-sm border border-default-medium text-heading font-medium rounded rounded-base focus:border-brand w-full p-2 shadow-xs"
                             value={formData.selesai}
                             onChange={(e) => 
                                 setFormData({...formData, selesai: e.target.value})
@@ -107,13 +107,13 @@ export default function ScheduleModalForm ({ onClose, onSubmit, initialData }: M
                         />
                     </div>
                     <div>
-                        <label className="block mb-3 text-2xl font-medium text-heading">Hari</label>
+                        <label className="block mb-3 text-sm font-semibold text-heading">Hari</label>
                         <select 
                             value={formData.hari}
                             onChange={(e) => 
                                 setFormData({...formData, hari: e.target.value})
                             }
-                            className="w-full rounded-md border px-2 py-3 text-2xl">
+                            className="w-full rounded-md border p-2 text-sm">
 
                             <option value="" disabled>Pilih Hari</option>
 
@@ -125,13 +125,13 @@ export default function ScheduleModalForm ({ onClose, onSubmit, initialData }: M
                         </select>
                     </div>
                     <div>
-                        <label className="block mb-3 text-2xl font-medium text-heading">Kelas</label>
+                        <label className="block mb-3 text-sm font-semibold text-heading">Kelas</label>
                         <select 
                             value={formData.kelas}
                             onChange={(e) => 
                                 setFormData({...formData, kelas: e.target.value})
                             }
-                            className="w-full rounded-md border px-2 py-3 text-2xl">
+                            className="w-full rounded-md border p-2 text-sm">
 
                             <option value="" disabled>Pilih Jenis Kelas</option>
 

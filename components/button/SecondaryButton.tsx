@@ -16,7 +16,8 @@ export default function SecondaryButton({
 }: SecondaryButtonProps) {
 
     return (
-        <button type={type} onClick={onClick} className={`bg-red-500 hover:bg-red-700 text-2xl text-white py-2 px-4 rounded ${className}`}>
+        <button type={type} onClick={onClick} 
+            className={`bg-red-500 hover:bg-red-700 text-xs text-white px-2 py-1 rounded ${className}`}>
             {children}
         </button>
     )
