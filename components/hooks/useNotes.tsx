@@ -36,8 +36,7 @@ export function useNotes () {
         const {data, error} = await supabase
             .from("tugas_kuliah")
             .select("*")
-            .order("hari", {ascending: true})
-            .order("waktu", {ascending: true});
+            
         
         const elapsed = Date.now() - start;
         const MIN_LOADING_TIME = 500; 
@@ -65,7 +64,15 @@ export function useNotes () {
                 pengumpulan: item.pengumpulan,
             }))
             .sort((a, b) => {
-                return hari_order[a.hari] - hari_order[b.hari];
+            const dateA = new Date(a.tanggal).getTime();
+            const dateB = new Date(b.tanggal).getTime();
+
+            if (dateA !== dateB) {
+            return dateA - dateB; // tanggal terdekat dulu
+            }
+
+            // kalau tanggal sama → urutkan jam
+            return a.waktu.localeCompare(b.waktu);
             });
 
         setNotes(mapped);

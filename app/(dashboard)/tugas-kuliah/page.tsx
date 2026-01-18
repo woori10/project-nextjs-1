@@ -7,6 +7,8 @@ import ModalForm from "@/components/form/FormNotes";
 import { Note, useNotes } from "@/components/hooks/useNotes";
 import DeleteModal from "@/components/modal/DeleteModal";
 import { formatTanggal } from "@/lib/date";
+import { ArrowLeftStartOnRectangleIcon } from "@heroicons/react/24/solid";
+import Link from "next/link";
 import { useState } from "react";
 
 export default function NotesPage() {
@@ -59,8 +61,12 @@ export default function NotesPage() {
   return (
     <div className="h-full p-4">
         <div className="flex justify-between items-center">
-            <div>
-                <h1 className="text-xl font-semibold">Tugas Kuliah</h1>
+            <div className="flex justify-start">
+                <Link href="/dashboard">
+                    <button className="text-sm p-2 rounded hover:bg-gray-50 transition">
+                    <ArrowLeftStartOnRectangleIcon className="w-6 h-6 text-black" />
+                    </button>
+                </Link>
             </div>
             
             <div className="flex justify-end">
@@ -78,12 +84,12 @@ export default function NotesPage() {
             <table className="min-w-[700px] w-full border border-gray-300 table-fixed bg-white">
                 <thead className="text-center border-b text-sm border-gray-300">
                     <tr>
-                        <th className="w-1/4 py-4 px-3 font-semibold uppercase">Tugas</th>
-                        <th className="w-1/4 py-4 px-3 font-semibold uppercase">Matakuliah</th>
-                        <th className="w-1/4 py-4 px-3 font-semibold uppercase">Hari (DL)</th>
-                        <th className="w-1/4 py-4 px-3 font-semibold uppercase">Waktu (DL)</th>
-                        <th className="w-1/4 py-4 px-3 font-semibold uppercase">Pengumpulan</th>
-                        <th className="w-1/4 py-4 px-3 font-semibold uppercase">Action</th>
+                        <th className="w-1/4 p-4 font-semibold uppercase">Tugas</th>
+                        <th className="w-1/4 p-4 font-semibold uppercase">Matakuliah</th>
+                        <th className="w-1/4 p-4 font-semibold uppercase">Hari (DL)</th>
+                        <th className="w-1/4 p-4 font-semibold uppercase">Waktu (DL)</th>
+                        <th className="w-1/4 p-4 font-semibold uppercase">Pengumpulan</th>
+                        <th className="w-1/4 p-4 font-semibold uppercase">Action</th>
                     </tr>
                 </thead>
                 <tbody className="text-center text-xs">
@@ -96,18 +102,18 @@ export default function NotesPage() {
                     ) : (
                     notes.map((item) => (
                         <tr key={item.id} className="border-b border-gray-300">
-                            <td className="py-4 px-3">{item.tugas}</td>
-                            <td className="py-4 px-3">{item.matakuliah}</td>
-                            <td className="py-4 px-3">{item.hari} ({formatTanggal(item.tanggal)})</td>
-                            <td className="py-4 px-3">{item.waktu}</td>
-                            <td className="py-4 px-3">{item.pengumpulan}</td>
+                            <td className="p-4">{item.tugas}</td>
+                            <td className="p-4">{item.matakuliah}</td>
+                            <td className="p-4">{item.hari} ({formatTanggal(item.tanggal)})</td>
+                            <td className="p-4">{item.waktu}</td>
+                            <td className="py-4 px-3p-4">{item.pengumpulan}</td>
 
                             {/* Status */}
                             {/* <td className="py-8 px-6">
                                 <StatusBadge status = {item.status} />
                             </td> */}
 
-                            <td className="py-4 px-3">
+                            <td className="p-4">
                                 <div className="flex gap-3 justify-center px-6">
                                     <PrimaryButton
                                         onClick={() => {

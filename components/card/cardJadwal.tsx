@@ -1,5 +1,5 @@
 import { CalendarDateRangeIcon, ClockIcon } from "@heroicons/react/24/solid";
-import KelasBadge from "../badge/schedules/KelasBadge";
+import KelasBadge from "../badge/jadwal/KelasBadge";
 
 export default function CardJadwal({ data }: { data: any }) {
   return (

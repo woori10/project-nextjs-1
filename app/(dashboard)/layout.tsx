@@ -9,7 +9,7 @@ export default function MainLayout({ children }: { children: React.ReactNode }) 
         <AppBar />
 
         {/* ⬇️ main NGISI SISA TINGGI */}
-        <main className="flex-1 px-4 sm:px-6 lg:px-10 overflow-y-auto overflow-x-hidden">
+        <main className="flex-1 pt-14 px-4 sm:px-6 lg:px-10 overflow-y-auto overflow-x-hidden">
           {children}
         </main>
       </div>

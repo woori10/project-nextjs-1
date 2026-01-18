@@ -100,6 +100,19 @@ export default function NotesModalForm ({ onClose, onSubmit, initialData }: Moda
                     </div>
 
                     <div>
+                        <label className="block mb-3 text-sm font-semibold text-heading">Tanggal (DL)</label>
+                        <input 
+                            type="date" 
+                            placeholder="Tambahkan Tugas" 
+                            className="block text-sm border border-default-medium text-heading font-medium rounded rounded-base focus:border-brand w-full px-3 py-3 shadow-xs"
+                            value={formData.tanggal}
+                            onChange={(e) => 
+                                setFormData({...formData, tanggal: e.target.value})
+                            }    
+                        />
+                    </div>
+
+                    <div>
                         <label className="block mb-3 text-sm font-semibold text-heading">Hari (DL)</label>
                         <select 
                             value={formData.hari}
@@ -116,19 +129,6 @@ export default function NotesModalForm ({ onClose, onSubmit, initialData }: Moda
                             </option>
                             ))}
                         </select>
-                    </div>
-
-                    <div>
-                        <label className="block mb-3 text-sm font-semibold text-heading">Tanggal (DL)</label>
-                        <input 
-                            type="date" 
-                            placeholder="Tambahkan Tugas" 
-                            className="block text-sm border border-default-medium text-heading font-medium rounded rounded-base focus:border-brand w-full px-3 py-3 shadow-xs"
-                            value={formData.tanggal}
-                            onChange={(e) => 
-                                setFormData({...formData, tanggal: e.target.value})
-                            }    
-                        />
                     </div>
 
                     <div>
