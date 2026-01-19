@@ -7,7 +7,7 @@ type DeleteModalProps ={
     message : string;
 }
 
-export default function DeleteModal ({ show, onClose, onConfirm, message}: DeleteModalProps) {
+export default function DeleteModal ({ show, onClose, onConfirm, message,}: DeleteModalProps) {
     return(
         <AnimatePresence>
             {show && (

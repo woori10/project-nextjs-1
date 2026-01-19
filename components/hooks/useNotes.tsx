@@ -16,18 +16,6 @@ export function useNotes () {
      const [notes, setNotes] = useState<Note[]>([]);
      const [loading, setLoading] = useState(true);
 
-     const hari_order: Record<string, number> = {
-        Senin: 1,
-        Selasa: 2,
-        Rabu: 3,
-        Kamis: 4,
-        Jumat: 5,
-        Sabtu: 6,
-        Minggu: 7,
-     }
-
-    
-
      const fetchNotes = async () => {
         setLoading(true);
         
@@ -39,7 +27,7 @@ export function useNotes () {
             
         
         const elapsed = Date.now() - start;
-        const MIN_LOADING_TIME = 500; 
+        const MIN_LOADING_TIME = 500;
 
            
         if (elapsed < MIN_LOADING_TIME) {
@@ -60,7 +48,7 @@ export function useNotes () {
                 matakuliah: item.matakuliah,
                 hari: item.hari,
                 tanggal: item.tanggal,
-                waktu: item.waktu,
+                waktu: item.waktu?.slice(0, 5),
                 pengumpulan: item.pengumpulan,
             }))
             .sort((a, b) => {

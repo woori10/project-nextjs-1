@@ -56,8 +56,8 @@ export function useSchedules () {
                 id: item.id_jadwal,
                 matakuliah: item.mata_kuliah,
                 ruangan: item.ruangan,
-                mulai: item.pukul_mulai,
-                selesai: item.pukul_selesai,
+                mulai: item.pukul_mulai?.slice(0, 5),
+                selesai: item.pukul_selesai?.slice(0, 5),
                 hari: item.hari,
                 kelas: item.kelas,
             }))

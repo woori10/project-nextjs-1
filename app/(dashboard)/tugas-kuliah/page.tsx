@@ -3,7 +3,7 @@
 import PrimaryButton from "@/components/button/PrimaryButton";
 import SecondaryButton from "@/components/button/SecondaryButton";
 import TernaryButton from "@/components/button/TernaryButton";
-import ModalForm from "@/components/form/FormNotes";
+import NotesModalForm from "@/components/form/FormNotes";
 import { Note, useNotes } from "@/components/hooks/useNotes";
 import DeleteModal from "@/components/modal/DeleteModal";
 import { formatTanggal } from "@/lib/date";
@@ -63,8 +63,8 @@ export default function NotesPage() {
         <div className="flex justify-between items-center">
             <div className="flex justify-start">
                 <Link href="/dashboard">
-                    <button className="text-sm p-2 rounded hover:bg-gray-50 transition">
-                    <ArrowLeftStartOnRectangleIcon className="w-6 h-6 text-black" />
+                    <button className="text-sm p-2 rounded hover:bg-gray-50 transition cursor-pointer">
+                    <ArrowLeftStartOnRectangleIcon className="w-6 h-6 text-gray-800" />
                     </button>
                 </Link>
             </div>
@@ -72,7 +72,7 @@ export default function NotesPage() {
             <div className="flex justify-end">
                 <TernaryButton
                     type="button"
-                    className="my-4"
+                    className="my-4 text-xs"
                     onClick={()=>setOpenModal(true)}>
                     Tambah Tugas
                 </TernaryButton>
@@ -81,15 +81,15 @@ export default function NotesPage() {
 
         <div className="shadow-sm rounded-md">
             <div className="overflow-x-auto">
-            <table className="min-w-[700px] w-full border border-gray-300 table-fixed bg-white">
+            <table className="min-w-[700px] w-full border border-gray-300 table-fixed bg-white text-gray-800">
                 <thead className="text-center border-b text-sm border-gray-300">
                     <tr>
-                        <th className="w-1/4 p-4 font-semibold uppercase">Tugas</th>
-                        <th className="w-1/4 p-4 font-semibold uppercase">Matakuliah</th>
-                        <th className="w-1/4 p-4 font-semibold uppercase">Hari (DL)</th>
-                        <th className="w-1/4 p-4 font-semibold uppercase">Waktu (DL)</th>
-                        <th className="w-1/4 p-4 font-semibold uppercase">Pengumpulan</th>
-                        <th className="w-1/4 p-4 font-semibold uppercase">Action</th>
+                        <th className="p-4 font-semibold uppercase">Tugas</th>
+                        <th className="p-4 font-semibold uppercase">Matakuliah</th>
+                        <th className="p-4 font-semibold uppercase">Hari (DL)</th>
+                        <th className="p-4 font-semibold uppercase">Waktu (DL)</th>
+                        <th className="p-4 font-semibold uppercase">Pengumpulan</th>
+                        <th className="p-4 font-semibold uppercase">Action</th>
                     </tr>
                 </thead>
                 <tbody className="text-center text-xs">
@@ -99,58 +99,66 @@ export default function NotesPage() {
                         <SkeletonLoader />
                         <SkeletonLoader />
                         </>
+                    ) : notes.length === 0 ? (
+                        <tr>
+                        <td
+                            colSpan={6}
+                            className="p-4 text-center text-sm text-gray-500"
+                        >
+                            Tidak ada Tugas
+                        </td>
+                        </tr>
                     ) : (
-                    notes.map((item) => (
+                        notes.map((item) => (
                         <tr key={item.id} className="border-b border-gray-300">
                             <td className="p-4">{item.tugas}</td>
                             <td className="p-4">{item.matakuliah}</td>
-                            <td className="p-4">{item.hari} ({formatTanggal(item.tanggal)})</td>
+                            <td className="p-4">
+                            {item.hari} ({formatTanggal(item.tanggal)})
+                            </td>
                             <td className="p-4">{item.waktu}</td>
-                            <td className="py-4 px-3p-4">{item.pengumpulan}</td>
-
-                            {/* Status */}
-                            {/* <td className="py-8 px-6">
-                                <StatusBadge status = {item.status} />
-                            </td> */}
+                            <td className="p-4">{item.pengumpulan}</td>
 
                             <td className="p-4">
-                                <div className="flex gap-3 justify-center px-6">
-                                    <PrimaryButton
-                                        onClick={() => {
-                                            setSelectedNote(item);
-                                            setOpenModal(true);
-                                        }}
-                                        >Edit
-                                    </PrimaryButton>
-                                    <SecondaryButton 
-                                        onClick={() => {
-                                            setSelectedNotesId(item.id);
-                                            setShowDeleteModal(true);
-                                        }}>
-                                        Delete
-                                    </SecondaryButton>
-                                </div>
+                            <div className="flex gap-3 justify-center px-6">
+                                <PrimaryButton
+                                onClick={() => {
+                                    setSelectedNote(item);
+                                    setOpenModal(true);
+                                }}
+                                >
+                                Edit
+                                </PrimaryButton>
+
+                                <SecondaryButton
+                                onClick={() => {
+                                    setSelectedNotesId(item.id);
+                                    setShowDeleteModal(true);
+                                }}
+                                >
+                                Delete
+                                </SecondaryButton>
+                            </div>
                             </td>
                         </tr>
-                    ))
-                )}
+                        ))
+                    )}
                 </tbody>
             </table>
             </div>
         </div>
 
-        {openModal && (
-            <ModalForm
-                onClose={() => {
-                    setOpenModal(false);
-                    setSelectedNote(null);
-                }}
-                onSubmit={handleSubmitNote}
-                initialData={selectedNote}
-            />
-        )}
+        <NotesModalForm
+            show={openModal}
+            onClose={() => {
+                setOpenModal(false);
+                setSelectedNotesId(null);
+            }}
+            onSubmit={handleSubmitNote}
+            initialData={selectedNote}
+        />
 
-        <DeleteModal 
+        <DeleteModal
             show={showDeleteModal}
             onClose={()=>setShowDeleteModal(false)}
             onConfirm={handleDeleteNote}

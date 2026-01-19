@@ -55,12 +55,11 @@ export default function SchedulePage() {
 
   return (
     <div className="h-full p-4">
-      {/* Header */}
       <div className="flex justify-between items-center">
         <div className="flex justify-start">
           <Link href="/dashboard">
             <button className="text-sm p-2 rounded hover:bg-gray-50 transition">
-              <ArrowLeftStartOnRectangleIcon className="w-6 h-6 text-black cursor-pointer" />
+              <ArrowLeftStartOnRectangleIcon className="w-6 h-6 text-gray-800 cursor-pointer" />
             </button>
           </Link>
         </div>
@@ -68,7 +67,7 @@ export default function SchedulePage() {
         <div className="flex justify-end">
           <TernaryButton
             type="button"
-            className="my-4"
+            className="my-4 text-xs"
             onClick={() => setOpenModal(true)}
           >
             Tambah Jadwal
@@ -79,16 +78,16 @@ export default function SchedulePage() {
       {/* Table */}
       <div className="shadow-sm rounded-md">
         <div className="overflow-x-auto">
-          <table className="min-w-[700px] w-full border border-gray-300 table-fixed bg-white">
+          <table className="w-full min-w-[700px] border border-gray-300 bg-white text-gray-800">
             <thead className="text-center border-b text-sm border-gray-300">
               <tr>
-                <th className="w-1/4 p-4 font-semibold uppercase">Matakuliah</th>
-                <th className="w-1/4 p-4 font-semibold uppercase">Ruangan</th>
-                <th className="w-1/4 p-4 font-semibold uppercase">Kelas</th>
-                <th className="w-1/4 p-4 font-semibold uppercase">Hari</th>
-                <th className="w-1/4 p-4 font-semibold uppercase">Pukul</th>
+                <th className="p-4 font-semibold uppercase">Matakuliah</th>
+                <th className="p-4 font-semibold uppercase">Ruangan</th>
+                <th className="p-4 font-semibold uppercase">Kelas</th>
+                <th className="p-4 font-semibold uppercase">Hari</th>
+                <th className="p-4 font-semibold uppercase">Pukul</th>
                 {/* <th className="w-1/4 py-4 px-3 font-semibold uppercase">Selesai</th> */}
-                <th className="w-1/4 p-4 font-semibold uppercase">Action</th>
+                <th className="p-4 font-semibold uppercase">Action</th>
               </tr>
             </thead>
 
@@ -142,16 +141,15 @@ export default function SchedulePage() {
       </div>
 
       {/* Modal */}
-      {openModal && (
-        <ScheduleModalForm
-          onClose={() => {
-            setOpenModal(false);
-            setSelectedSchedule(null);
-          }}
-          onSubmit={handleSubmitSchedule}
-          initialData={selectedSchedule}
-        />
-      )}
+      <ScheduleModalForm
+        show={openModal}
+        onClose={() => {
+          setOpenModal(false);
+          setSelectedSchedule(null);
+        }}
+        onSubmit={handleSubmitSchedule}
+        initialData={selectedSchedule}
+      />
 
       <DeleteModal
         show={showDeleteModal}

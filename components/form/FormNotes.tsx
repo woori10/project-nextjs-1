@@ -1,210 +1,200 @@
 "use client";
+
+import { AnimatePresence, motion } from "framer-motion";
 import { useEffect, useState } from "react";
+import CancelButton from "../button/CancelButton";
 import TernaryButton from "../button/TernaryButton";
 
-type ModalProps ={
-    onClose: () => void;
-    onSubmit: (data: any) => void;
-    initialData?: any;
+type ModalProps = {
+  show: boolean;
+  onClose: () => void;
+  onSubmit: (data: any) => void;
+  initialData?: any;
 };
 
-export default function NotesModalForm ({ onClose, onSubmit, initialData }: ModalProps) {
-    
-    // const status =["Soon", "On Progress", "Pending", "Done"]
-    const matakuliah =[
-        "Kecerdasan Bisnis", 
-        "Proyek Pengembangan Perangkat Lunak",
-        "Bahasa Inggris Dokumentasi Teknis",
-        "Visual Komputer Cerdas",
-        "Teknologi Big Data",
-        "Bahasa Asing (Jepang)"
-    ]
+export default function NotesModalForm({
+  show,
+  onClose,
+  onSubmit,
+  initialData,
+}: ModalProps) {
+  const matakuliah = [
+    "Kecerdasan Bisnis",
+    "Proyek Pengembangan Perangkat Lunak",
+    "Bahasa Inggris Dokumentasi Teknis",
+    "Visual Komputer Cerdas",
+    "Teknologi Big Data",
+    "Bahasa Asing (Jepang)",
+  ];
 
-    const hari = ["Senin", "Selasa", "Rabu", "Kamis", "Jumat", "Sabtu", "Minggu"]
+  const hari = ["Senin", "Selasa", "Rabu", "Kamis", "Jumat", "Sabtu", "Minggu"];
 
-    const [formData, setFormData] = useState({
-        tugas: "",
-        matakuliah: "",
-        hari: "",
-        tanggal: "",
-        waktu: "",
-        pengumpulan:"",
-    });
+  const [formData, setFormData] = useState({
+    tugas: "",
+    matakuliah: "",
+    hari: "",
+    tanggal: "",
+    waktu: "",
+    pengumpulan: "",
+  });
 
-    const handleSubmit = (e: React.FormEvent) => {
-        e.preventDefault();
-        onSubmit(formData);
-        onClose();
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    onSubmit(formData);
+    onClose();
+  };
+
+  useEffect(() => {
+    if (!show) return;
+    document.body.style.overflow = "hidden";
+    return () => {
+      document.body.style.overflow = "auto";
     };
+  }, [show]);
 
+  useEffect(() => {
+    if (initialData) {
+      setFormData(initialData);
+    }
+  }, [initialData]);
 
-    useEffect(() => {
-        document.body.style.overflow = "hidden";
-        return () => {
-        document.body.style.overflow = "auto";
-        };
-    }, []);
+  return (
+    <AnimatePresence>
+      {show && (
+        <motion.div
+          className="fixed inset-0 z-50 flex items-center justify-center bg-black/30 backdrop-blur-sm"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          exit={{ opacity: 0 }}
+        >
+          <motion.div
+            className="relative w-[90%] sm:w-[85%] md:w-full max-w-lg rounded-lg bg-white p-4 border max-h-[90vh] overflow-y-auto border-gray-300 shadow-lg"
+            initial={{ scale: 0.8, opacity: 0 }}
+            animate={{ scale: 1, opacity: 1 }}
+            exit={{ scale: 0.8, opacity: 0 }}
+          >
+            <form onSubmit={handleSubmit} className="space-y-4 px-8 py-4">
+              <h1 className="text-center text-lg font-bold mb-4 text-gray-800">
+                {initialData ? "Edit Tugas" : "Tambah Tugas"}
+              </h1>
 
-    useEffect (() => {
-        if (initialData) {
-            setFormData(initialData);
-        }
-    }, [initialData]);
+              <div>
+                <label className="block mb-3 text-sm font-medium text-gray-800">
+                  Tugas
+                </label>
+                <input
+                  type="text"
+                  placeholder="Tambahkan Tugas"
+                  className="block text-sm text-gray-600 border border-default-medium font-medium rounded rounded-base focus:border-brand w-full px-3 py-3 shadow-xs"
+                  value={formData.tugas}
+                  onChange={(e) =>
+                    setFormData({ ...formData, tugas: e.target.value })
+                  }
+                />
+              </div>
 
-    return (
-        <div className="fixed inset-0 z-50 flex items-center justify-center">
+              <div>
+                <label className="block mb-3 text-sm font-medium text-gray-800">
+                  Matakuliah
+                </label>
+                <select
+                  value={formData.matakuliah}
+                  onChange={(e) =>
+                    setFormData({ ...formData, matakuliah: e.target.value })
+                  }
+                  className="w-full rounded-md border px-2 py-3 text-sm text-gray-600"
+                >
+                  <option value="" disabled>
+                    Pilih Matakuliah
+                  </option>
+                  {matakuliah.map((m) => (
+                    <option key={m} value={m}>
+                      {m}
+                    </option>
+                  ))}
+                </select>
+              </div>
 
-            <div 
-                onClick={onClose}
-                className="absolute inset-0 bg-black/30 backdrop-blur-sm transition-opacity"
-            />
+              <div>
+                <label className="block mb-3 text-sm font-medium text-gray-800">
+                  Tanggal (DL)
+                </label>
+                <input
+                  type="date"
+                  className="block text-sm border border-default-medium text-gray-600 font-medium rounded rounded-base focus:border-brand w-full px-3 py-3 shadow-xs"
+                  value={formData.tanggal}
+                  onChange={(e) =>
+                    setFormData({ ...formData, tanggal: e.target.value })
+                  }
+                />
+              </div>
 
-            <div className="relative w-full max-w-lg rounded-lg bg-white p-4 border border-gray-300 shadow-lg animate-modal">
-                 
-                 <form onSubmit={handleSubmit} className="space-y-4 px-8 py-4">
+              <div>
+                <label className="block mb-3 text-sm font-medium text-gray-800">
+                  Hari (DL)
+                </label>
+                <select
+                  value={formData.hari}
+                  onChange={(e) =>
+                    setFormData({ ...formData, hari: e.target.value })
+                  }
+                  className="w-full rounded-md border px-2 py-3 text-sm text-gray-600"
+                >
+                  <option value="" disabled>
+                    Pilih Hari
+                  </option>
+                  {hari.map((h) => (
+                    <option key={h} value={h}>
+                      {h}
+                    </option>
+                  ))}
+                </select>
+              </div>
 
-                    <h1 className="text-center text-lg font-bold mb-4">
-                        {initialData? "Edit Tugas" : "Tambah Tugas"}
-                    </h1>
+              <div>
+                <label className="block mb-3 text-sm font-medium text-gray-800">
+                  Waktu (DL)
+                </label>
+                <input
+                  type="time"
+                  className="block text-sm border border-default-medium text-gray-600 font-medium rounded rounded-base focus:border-brand w-full px-3 py-3 shadow-xs"
+                  value={formData.waktu}
+                  onChange={(e) =>
+                    setFormData({ ...formData, waktu: e.target.value })
+                  }
+                />
+              </div>
 
-                    <div>
-                        <label className="block mb-3 text-sm font-semibold text-heading">Tugas</label>
-                        <input 
-                            type="text" 
-                            placeholder="Tambahkan Tugas" 
-                            className="block text-sm border border-default-medium text-heading font-medium rounded rounded-base focus:border-brand w-full px-3 py-3 shadow-xs"
-                            value={formData.tugas}
-                            onChange={(e) => 
-                                setFormData({...formData, tugas: e.target.value})
-                            }    
-                        />
-                    </div>
+              <div>
+                <label className="block mb-3 text-sm font-medium text-gray-800">
+                  Pengumpulan
+                </label>
+                <input
+                  type="text"
+                  placeholder="Tambahkan Pengumpulan"
+                  className="block text-sm border border-default-medium text-gray-600 font-medium rounded rounded-base focus:border-brand w-full px-3 py-3 shadow-xs"
+                  value={formData.pengumpulan}
+                  onChange={(e) =>
+                    setFormData({
+                      ...formData,
+                      pengumpulan: e.target.value,
+                    })
+                  }
+                />
+              </div>
 
-                    <div>
-                        <label className="block mb-3 text-sm font-semibold text-heading">Matakuliah</label>
-                        <select 
-                            value={formData.matakuliah}
-                            onChange={(e) => 
-                                setFormData({...formData, matakuliah: e.target.value})
-                            }
-                            className="w-full rounded-md border px-2 py-3 text-sm">
-                            
-                            <option value="" disabled>Pilih Matakuliah</option>
-
-                            {matakuliah.map((matakuliah) => (
-                                <option key={matakuliah} value={matakuliah}>
-                                    {matakuliah}
-                                </option>
-                            ))}
-                        </select>
-                    </div>
-
-                    <div>
-                        <label className="block mb-3 text-sm font-semibold text-heading">Tanggal (DL)</label>
-                        <input 
-                            type="date" 
-                            placeholder="Tambahkan Tugas" 
-                            className="block text-sm border border-default-medium text-heading font-medium rounded rounded-base focus:border-brand w-full px-3 py-3 shadow-xs"
-                            value={formData.tanggal}
-                            onChange={(e) => 
-                                setFormData({...formData, tanggal: e.target.value})
-                            }    
-                        />
-                    </div>
-
-                    <div>
-                        <label className="block mb-3 text-sm font-semibold text-heading">Hari (DL)</label>
-                        <select 
-                            value={formData.hari}
-                            onChange={(e) => 
-                                setFormData({...formData, hari: e.target.value})
-                            }
-                            className="w-full rounded-md border p-2 text-sm">
-
-                            <option value="" disabled>Pilih Hari</option>
-
-                            {hari.map((hari) => (
-                            <option key={hari} value={hari}>
-                                {hari}
-                            </option>
-                            ))}
-                        </select>
-                    </div>
-
-                    <div>
-                        <label className="block mb-3 text-sm font-semibold text-heading">Waktu (DL)</label>
-                        <input 
-                            type="time" 
-                            placeholder="Tambahkan Tugas" 
-                            className="block text-sm border border-default-medium text-heading font-medium rounded rounded-base focus:border-brand w-full px-3 py-3 shadow-xs"
-                            value={formData.waktu}
-                            onChange={(e) => 
-                                setFormData({...formData, waktu: e.target.value})
-                            }    
-                        />
-                    </div>
-
-                    <div>
-                        <label className="block mb-3 text-sm font-semibold text-heading">Pengumpulan</label>
-                        <input 
-                            type="text" 
-                            placeholder="Tambahkan Pengumpulan"
-                            className="block text-sm border border-default-medium text-heading font-medium rounded rounded-base focus:border-brand w-full px-3 py-3 shadow-xs"
-                            value={formData.pengumpulan}
-                            onChange={(e) => 
-                                setFormData({...formData, pengumpulan: e.target.value})
-                            }    
-                        />
-                    </div>
-
-                    {/* Kategori */}
-                    {/* <div>
-                        <label className="block mb-3 text-2xl font-medium text-heading">Kategori</label>
-                        <select 
-                            value={formData.kategori}
-                            onChange={(e) => 
-                                setFormData({...formData, kategori: e.target.value})
-                            }
-                            className="w-full rounded-md border px-2 py-3 text-2xl">
-                            
-                            <option value="" disabled>Pilih Kategori</option>
-
-                            {kategori.map((kategori) => (
-                                <option key={kategori} value={kategori}>
-                                    {kategori}
-                                </option>
-                            ))}
-                        </select>
-                    </div> */}
-
-                    {/* Status */}
-                    {/* <div>
-                        <label className="block mb-3 text-2xl font-medium text-heading">Status</label>
-                        <select 
-                            value={formData.status}
-                            onChange={(e) => 
-                                setFormData({...formData, status: e.target.value})
-                            }
-                            className="w-full rounded-md border px-2 py-3 text-2xl">
-
-                            <option value="" disabled>Pilih Status</option>
-
-                            {status.map((status) => (
-                            <option key={status} value={status}>
-                                {status}
-                            </option>
-                            ))}
-                        </select>
-                    </div> */}
-
-                    <div className="flex justify-end">
-                        <TernaryButton type="submit" className="mt-4">
-                            {initialData? "Simpan" : "Tambah"}
-                        </TernaryButton>
-                    </div>
-                </form>
-
-            </div>
-        </div>
-    );
-};
+              <div className="flex gap-3 justify-end">
+                <CancelButton type="button" className="mt-4 text-xs" onClick={onClose}>
+                  Batal
+                </CancelButton>
+                <TernaryButton type="submit" className="mt-4 text-xs">
+                  {initialData ? "Simpan" : "Tambah"}
+                </TernaryButton>
+              </div>
+            </form>
+          </motion.div>
+        </motion.div>
+      )}
+    </AnimatePresence>
+  );
+}

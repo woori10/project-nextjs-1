@@ -1,22 +1,22 @@
 import React from "react";
 
-type TernaryButtonProps = {
+type CancelButtonProps = {
     children: React.ReactNode;
     onClick?: () => void;
     type?: "button" | "submit";
     className?: string;
 }
 
-export default function TernaryButton({
+export default function CancelButton({
     children,
     onClick,
     type="button",
     className="",
-}: TernaryButtonProps) {
+}: CancelButtonProps) {
 
     return (
         <button type={type} onClick={onClick} 
-            className={`bg-indigo-500 hover:bg-indigo-700 text-white p-2 rounded ${className}`}>
+            className={`bg-gray-100 hover:bg-gray-200 text-gray-600 p-2 rounded ${className}`}>
             {children}
         </button>
     )
