@@ -23,7 +23,7 @@ export default function CardTugas({
       <div className="h-full flex flex-col shadow-sm rounded-xl bg-white border border-gray-300 p-6">
         
         <div className="flex flex-row justify-between items-center gap-3 mb-3 text-gray-800">
-          <h1 className="text-lg font-bold leading-tight">
+          <h1 className="text-md font-bold leading-tight">
               {data.matakuliah}
           </h1>
 
